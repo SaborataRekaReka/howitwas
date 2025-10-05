@@ -12,10 +12,10 @@
 
 const CONFIG = {
     // Вставьте сюда токен вашего бота (получите у @BotFather)
-    TELEGRAM_BOT_TOKEN: 'YOUR_BOT_TOKEN_HERE',
+    TELEGRAM_BOT_TOKEN: '8419196783:AAGiZ1_Mh2V1-g4PfAjDQ8LIstir6MFYML0',
     
     // Вставьте сюда ваш Chat ID
-    TELEGRAM_CHAT_ID: 'YOUR_CHAT_ID_HERE'
+    TELEGRAM_CHAT_ID: '167032781'
 };
 
 // Не редактируйте ниже эту строку
