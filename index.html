@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзыв на свидание</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Круговой прогресс-бар -->
+    <div class="circular-progress-wrapper">
+        <svg class="circular-progress" width="80" height="80">
+            <defs>
+                <linearGradient id="gradientProgress" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#89CFF0;stop-opacity:1" />
+                    <stop offset="25%" style="stop-color:#A6B8E5;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#C8B5E5;stop-opacity:1" />
+                    <stop offset="75%" style="stop-color:#E4BBE4;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#F0C4E1;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <circle class="progress-bg" cx="40" cy="40" r="36" />
+            <circle class="progress-circle" id="progressCircle" cx="40" cy="40" r="36" />
+        </svg>
+        <div class="progress-text" id="progressText">0%</div>
+        <div class="progress-tooltip" id="progressTooltip">
+            <h4>Что осталось:</h4>
+            <ul id="tooltipList"></ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="user-info">
+                <img src="media/DSCN0293-3.jpg" alt="Avatar" class="avatar">
+                <div class="user-name">
+                    <div class="name">Алекс Бренейзе</div>
+                    <div class="username">@brenneise</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="title-with-date">
+            <h1>Отзыв на свидание</h1>
+            <div class="date-picker-wrapper">
+                <div id="dateDisplay" class="date-display-inline">
+                    <span id="dateText">Выберите дату</span>
+                </div>
+                <div id="customDatePicker" class="custom-date-picker" style="display: none;">
+                    <div class="date-picker-header">
+                        <button type="button" class="date-nav" id="prevMonth">‹</button>
+                        <span class="current-month-year" id="currentMonthYear"></span>
+                        <button type="button" class="date-nav" id="nextMonth">›</button>
+                    </div>
+                    <div class="date-picker-weekdays">
+                        <div class="weekday">Пн</div>
+                        <div class="weekday">Вт</div>
+                        <div class="weekday">Ср</div>
+                        <div class="weekday">Чт</div>
+                        <div class="weekday">Пт</div>
+                        <div class="weekday">Сб</div>
+                        <div class="weekday">Вс</div>
+                    </div>
+                    <div class="date-picker-days" id="datePickerDays"></div>
+                    <div class="date-picker-actions">
+                        <button type="button" class="date-action-btn" id="todayBtn">Сегодня</button>
+                        <button type="button" class="date-action-btn" id="yesterdayBtn">Вчера</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form id="dateReviewForm">
+            <input type="hidden" name="dateOfMeeting" id="dateOfMeeting" required>
+
+            <!-- Как это было? -->
+            <section class="form-section">
+                <h2>Как это было?</h2>
+                <label>Ваши впечатления <span class="required">*</span></label>
+                <textarea 
+                    name="impression" 
+                    id="impression" 
+                    placeholder="Начните печатать..."
+                    required
+                ></textarea>
+            </section>
+
+            <!-- Моменты -->
+            <section class="form-section">
+                <h2>Моменты</h2>
+                
+                <div class="tag-group">
+                    <label>🗣 Общение <span class="required">*</span></label>
+                    <div class="tag-container" data-group="communication">
+                        <button type="button" class="tag" data-value="Лёгкое">Лёгкое</button>
+                        <button type="button" class="tag" data-value="Откровенное">Откровенное</button>
+                        <button type="button" class="tag" data-value="Живое">Живое</button>
+                        <button type="button" class="tag" data-value="Неловкое">Неловкое</button>
+                        <button type="button" class="tag" data-value="Интеллектуальное">Интеллектуальное</button>
+                        <button type="button" class="tag" data-value="Душевное">Душевное</button>
+                        <button type="button" class="tag" data-value="Поверхностное">Поверхностное</button>
+                        <button type="button" class="tag" data-value="Саркастичное">Саркастичное</button>
+                        <button type="button" class="tag" data-value="Романтичное">Романтичное</button>
+                        <button type="button" class="tag" data-value="Увлекательное">Увлекательное</button>
+                    </div>
+                    <input type="text" class="custom-tag-input" placeholder="+ Свой вариант" data-group="communication">
+                    <input type="hidden" name="communication" id="communication" required>
+                </div>
+
+                <div class="tag-group">
+                    <label>🤝 Внимание и манеры <span class="required">*</span></label>
+                    <div class="tag-container" data-group="attention">
+                        <button type="button" class="tag" data-value="Галантный">Галантный</button>
+                        <button type="button" class="tag" data-value="Тактичный">Тактичный</button>
+                        <button type="button" class="tag" data-value="Заботливый">Заботливый</button>
+                        <button type="button" class="tag" data-value="Навязчивый">Навязчивый</button>
+                        <button type="button" class="tag" data-value="Уверенный">Уверенный</button>
+                        <button type="button" class="tag" data-value="Нежный">Нежный</button>
+                        <button type="button" class="tag" data-value="Холодный">Холодный</button>
+                        <button type="button" class="tag" data-value="Игривый">Игривый</button>
+                        <button type="button" class="tag" data-value="Сдержанный">Сдержанный</button>
+                        <button type="button" class="tag" data-value="Поддерживающий">Поддерживающий</button>
+                    </div>
+                    <input type="text" class="custom-tag-input" placeholder="+ Свой вариант" data-group="attention">
+                    <input type="hidden" name="attention" id="attention" required>
+                </div>
+
+                <div class="tag-group">
+                    <label>🔥 Химия <span class="required">*</span></label>
+                    <div class="tag-container" data-group="chemistry">
+                        <button type="button" class="tag" data-value="Мурашки">Мурашки</button>
+                        <button type="button" class="tag" data-value="Магнитное притяжение">Магнитное притяжение</button>
+                        <button type="button" class="tag" data-value="Интрига">Интрига</button>
+                        <button type="button" class="tag" data-value="Взаимное возбуждение">Взаимное возбуждение</button>
+                        <button type="button" class="tag" data-value="Дружеское ощущение">Дружеское ощущение</button>
+                        <button type="button" class="tag" data-value="Тепло, но без искры">Тепло, но без искры</button>
+                        <button type="button" class="tag" data-value="Душевная близость">Душевная близость</button>
+                        <button type="button" class="tag" data-value="Эмоциональная близость">Эмоциональная близость</button>
+                        <button type="button" class="tag" data-value="Непонимание">Непонимание</button>
+                        <button type="button" class="tag" data-value="Полное равнодушие">Полное равнодушие</button>
+                    </div>
+                    <input type="text" class="custom-tag-input" placeholder="+ Свой вариант" data-group="chemistry">
+                    <input type="hidden" name="chemistry" id="chemistry" required>
+                </div>
+
+                <div class="tag-group">
+                    <label>💋 Секс <span class="required">*</span></label>
+                    <div class="tag-container" data-group="sex">
+                        <button type="button" class="tag" data-value="Нежно-страстно">Нежно-страстно</button>
+                        <button type="button" class="tag" data-value="Игриво">Игрово</button>
+                        <button type="button" class="tag" data-value="Чувственно">Чувственно</button>
+                        <button type="button" class="tag" data-value="Спонтанно">Спонтанно</button>
+                        <button type="button" class="tag" data-value="Медленно и глубоко">Медленно и глубоко</button>
+                        <button type="button" class="tag" data-value="Агрессивно">Агрессивно</button>
+                        <button type="button" class="tag" data-value="Экспериментально">Эксперименты с доверием</button>
+                        <button type="button" class="tag" data-value="Быстро">Быстро</button>
+                        <button type="button" class="tag" data-value="Энергично">Энергично</button>
+                        <button type="button" class="tag" data-value="Не хотелось близости">Не хотелось близости</button>
+                    </div>
+                    <input type="text" class="custom-tag-input" placeholder="+ Свой вариант" data-group="sex">
+                    <input type="hidden" name="sex" id="sex" required>
+                </div>
+
+                <div class="tag-group">
+                    <label>🎭 Эмоции после свидания <span class="required">*</span></label>
+                    <div class="tag-container" data-group="emotions">
+                        <button type="button" class="tag" data-value="Воодушевление">Воодушевление</button>
+                        <button type="button" class="tag" data-value="Лёгкость">Лёгкость</button>
+                        <button type="button" class="tag" data-value="Усталость">Усталость</button>
+                        <button type="button" class="tag" data-value="Вдохновение">Вдохновение</button>
+                        <button type="button" class="tag" data-value="Разочарование">Разочарование</button>
+                        <button type="button" class="tag" data-value="Радость">Радость</button>
+                        <button type="button" class="tag" data-value="Смущение">Смущение</button>
+                        <button type="button" class="tag" data-value="Желание повторить">Желание повторить</button>
+                        <button type="button" class="tag" data-value="Желание избегать">Желание избегать</button>
+                        <button type="button" class="tag" data-value="Счастье">Счастье</button>
+                        <button type="button" class="tag" data-value="Эйфория">Эйфория</button>
+                        <button type="button" class="tag" data-value="Восторг">Восторг</button>
+                        <button type="button" class="tag" data-value="Благодарность">Благодарность</button>
+                        <button type="button" class="tag" data-value="Ощущение гармонии">Ощущение гармонии</button>
+                        <button type="button" class="tag" data-value="Полёт души">Полёт души</button>
+                    </div>
+                    <input type="text" class="custom-tag-input" placeholder="+ Свой вариант" data-group="emotions">
+                    <input type="hidden" name="emotions" id="emotions" required>
+                </div>
+            </section>
+
+            <!-- Хайлайты -->
+            <section class="form-section">
+                <h2>Хайлайты</h2>
+                <label>Опишите запоминающийся момент <span class="required">*</span></label>
+                <div id="highlightsContainer">
+                    <textarea 
+                        name="highlight_1" 
+                        class="highlight-textarea"
+                        placeholder="Начните печатать..."
+                        required
+                    ></textarea>
+                </div>
+                <button type="button" class="add-more-btn" id="addHighlight">+ Добавить еще</button>
+            </section>
+
+            <!-- Впечатления -->
+            <section class="form-section">
+                <h2>Впечатления</h2>
+                
+                <div class="input-group">
+                    <label>Что было хорошо? <span class="required">*</span></label>
+                    <textarea 
+                        name="good" 
+                        placeholder="Начните печатать..."
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Что могло быть лучше? <span class="required">*</span></label>
+                    <textarea 
+                        name="better" 
+                        placeholder="Начните печатать..."
+                        required
+                    ></textarea>
+                </div>
+            </section>
+
+            <!-- Оценка -->
+            <section class="form-section">
+                <h2>Ваша оценка</h2>
+                <div class="rating-container">
+                    <span id="ratingValue" class="rating-number">0</span>
+                    <div class="star-rating" id="starRating">
+                        <span class="star" data-rating="1">★</span>
+                        <span class="star" data-rating="2">★</span>
+                        <span class="star" data-rating="3">★</span>
+                        <span class="star" data-rating="4">★</span>
+                        <span class="star" data-rating="5">★</span>
+                    </div>
+                </div>
+                <input type="hidden" name="rating" id="rating" value="0" required>
+            </section>
+
+            <!-- Линейный прогресс для мобильных -->
+            <div class="mobile-progress-section">
+                <div class="mobile-progress-header" id="mobileProgressHeader">
+                    <span>Заполнено на <span id="mobileProgressText">0%</span></span>
+                    <img src="media/info-circle.svg" alt="info" class="info-icon">
+                </div>
+                <div class="mobile-progress-bar">
+                    <div class="mobile-progress-fill" id="mobileProgressBar"></div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Отправить</button>
+        </form>
+        
+        <!-- Модальное окно с подсказками -->
+        <div class="progress-modal" id="progressModal">
+            <div class="progress-modal-content">
+                <button class="modal-close" id="modalClose">×</button>
+                <h3>Что осталось заполнить:</h3>
+                <ul id="modalTooltipList"></ul>
+            </div>
+        </div>
+
+        <div id="successMessage" class="success-message" style="display: none;">
+            <h3>✓ Отзыв успешно отправлен!</h3>
+            <p>Спасибо за ваш отзыв на свидание.</p>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

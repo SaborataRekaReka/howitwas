@@ -1,0 +1,822 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(135deg, #89CFF0 0%, #A6B8E5 25%, #C8B5E5 50%, #E4BBE4 75%, #F0C4E1 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e0e0e0;
+}
+
+.user-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+
+.username {
+    font-size: 14px;
+    color: #666;
+}
+
+.title-with-date {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+    color: #1a1a1a;
+    display: inline;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+}
+
+/* Круговой прогресс-бар */
+.circular-progress-wrapper {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+}
+
+.circular-progress {
+    transform: rotate(-90deg);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+.progress-bg {
+    fill: none;
+    stroke: white;
+    stroke-width: 6;
+}
+
+.progress-circle {
+    fill: none;
+    stroke: url(#gradientProgress);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 226.195; /* 2 * PI * 36 */
+    stroke-dashoffset: 226.195;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-text {
+    position: absolute;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    pointer-events: none;
+}
+
+/* Tooltip для прогресс-бара */
+.progress-tooltip {
+    position: absolute;
+    bottom: 100px;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    min-width: 250px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1001;
+}
+
+.circular-progress-wrapper:hover .progress-tooltip {
+    opacity: 1;
+}
+
+.progress-tooltip h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.progress-tooltip ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-tooltip li {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.progress-tooltip li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #667eea;
+}
+
+.progress-tooltip li.completed {
+    color: #28a745;
+    text-decoration: line-through;
+}
+
+.progress-tooltip li.completed:before {
+    content: '✓';
+    color: #28a745;
+}
+
+.form-section {
+    margin-bottom: 40px;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.required {
+    color: #e74c3c;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    resize: vertical;
+    min-height: 50px;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+.highlight-textarea {
+    margin-bottom: 15px;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 8px;
+}
+
+.tag-group {
+    margin-bottom: 20px;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tag {
+    padding: 8px 16px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    position: relative;
+}
+
+.tag:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
+
+.tag.selected {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+    padding-right: 30px;
+}
+
+.tag.selected::after {
+    content: '×';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.custom-tag-input {
+    width: 100%;
+    padding: 10px 16px;
+    border: 2px dashed #d0d0d0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.custom-tag-input:focus {
+    outline: none;
+    border-color: #667eea;
+    border-style: solid;
+    background: white;
+}
+
+.custom-tag-input::placeholder {
+    color: #999;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* Date Picker Styles */
+.date-picker-wrapper {
+    position: relative;
+}
+
+.date-display-inline {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    position: relative;
+}
+
+.date-display-inline #dateText {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: #667eea;
+    text-underline-offset: 4px;
+}
+
+.date-display-inline:hover #dateText {
+    text-decoration-style: solid;
+    color: #667eea;
+}
+
+.calendar-icon {
+    font-size: 24px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.date-display-inline:hover .calendar-icon {
+    opacity: 1;
+}
+
+.custom-date-picker {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slideDown 0.3s ease;
+    min-width: 320px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.date-picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.current-month-year {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+}
+
+.date-nav {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #667eea;
+    padding: 4px 12px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.date-nav:hover {
+    background: #f8f9ff;
+}
+
+.date-picker-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.weekday {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    padding: 8px 0;
+}
+
+.date-picker-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.day-cell:hover {
+    background: #f8f9ff;
+    border-color: #667eea;
+}
+
+.day-cell.other-month {
+    color: #ccc;
+}
+
+.day-cell.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.day-cell.today {
+    border-color: #667eea;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.day-cell.today.selected {
+    color: white;
+}
+
+.date-picker-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid #f0f0f0;
+}
+
+.date-action-btn {
+    flex: 1;
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    color: #667eea;
+}
+
+.date-action-btn:hover {
+    background: #f8f9ff;
+    border-color: #667eea;
+}
+
+.add-more-btn {
+    padding: 10px 20px;
+    background: transparent;
+    color: #667eea;
+    border: 2px dashed #667eea;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.add-more-btn:hover {
+    background: #f8f9ff;
+    border-style: solid;
+}
+
+.star-rating {
+    display: flex;
+    gap: 8px;
+    font-size: 32px;
+}
+
+.star {
+    cursor: pointer;
+    color: #ddd;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.star:hover,
+.star.active {
+    color: #ffd700;
+    transform: scale(1.1);
+}
+
+.star.half {
+    background: linear-gradient(90deg, #ffd700 50%, #ddd 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.rating-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.rating-number {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.success-message {
+    text-align: center;
+    padding: 40px;
+    background: #d4edda;
+    border: 2px solid #28a745;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+.success-message h3 {
+    color: #28a745;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.success-message p {
+    color: #155724;
+    font-size: 16px;
+}
+
+/* Линейный прогресс для мобильных */
+.mobile-progress-section {
+    display: none;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.mobile-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.mobile-progress-header:active {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.info-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-progress-header:hover .info-icon {
+    opacity: 1;
+}
+
+.mobile-progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.mobile-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+/* Модальное окно */
+.progress-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10001;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.progress-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 400px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.progress-modal-content h3 {
+    margin-bottom: 16px;
+    color: #333;
+    font-size: 18px;
+    padding-right: 32px;
+}
+
+.progress-modal-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-modal-content li {
+    padding: 8px 0;
+    padding-left: 20px;
+    color: #666;
+    font-size: 14px;
+    position: relative;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.progress-modal-content li:last-child {
+    border-bottom: none;
+}
+
+.progress-modal-content li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.progress-modal-content li.completed {
+    color: #28a745;
+    text-decoration: line-through;
+}
+
+.progress-modal-content li.completed:before {
+    content: '✓';
+    color: #28a745;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 120px;
+    }
+    
+    .container {
+        padding: 30px 20px;
+        margin-bottom: 20px;
+    }
+    
+    /* Показываем линейный прогресс на мобильных */
+    .mobile-progress-section {
+        display: block;
+    }
+    
+    /* Скрываем круговой прогресс на мобильных */
+    .circular-progress-wrapper {
+        display: none;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .star-rating {
+        font-size: 32px;
+    }
+
+    .circular-progress-wrapper {
+        bottom: 20px;
+        right: 20px;
+        transform: scale(0.875); /* 70/80 = 0.875 */
+    }
+
+    .progress-text {
+        font-size: 16px;
+    }
+    
+    .progress-tooltip {
+        bottom: 90px;
+        right: -10px;
+        min-width: 220px;
+        font-size: 12px;
+    }
+
+    .date-display-inline {
+        font-size: 20px;
+    }
+    
+    .date-display-inline .calendar-icon {
+        font-size: 18px;
+    }
+
+    .title-with-date {
+        gap: 10px;
+        justify-content: flex-start;
+    }
+    
+    h1 {
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+    
+    .date-picker-wrapper {
+        flex-shrink: 0;
+    }
+    
+    /* Датапикер на мобильных */
+    .custom-date-picker {
+        position: fixed;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translate(-50%, -50%) !important;
+        margin-top: 0 !important;
+        max-width: calc(100vw - 40px);
+        width: 90%;
+        z-index: 10000;
+        animation: none !important;
+    }
+    
+    .date-picker-header,
+    .date-picker-days {
+        font-size: 14px;
+    }
+    
+    .day-cell {
+        font-size: 13px;
+    }
+}
